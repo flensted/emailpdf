@@ -1,0 +1,9 @@
+{
+  "name": "html2pdfEmail",
+  "description": "API for generating PDF from HTML and sending it as email",
+  "version": "0.0.1",
+  "dependencies": {
+    "body-parser": "^1.2.0",
+    "express": "*"
+  }
+}
