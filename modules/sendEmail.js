@@ -12,19 +12,20 @@ var sendEmail = function(toEmail, fromEmail, subject, message, attachment, attac
     };
 
     if (!!attachment) {
-        var attch = new mailgun.Attachment(attachment, attachmentName);
+        var attch = new Mailgun.Attachment(attachment, attachmentName);
         data.attachment = attch;
     }
 
     mailgun.messages().send(data,
-        function(err, response, body) {
+        function(error, response, body) {
             console.log(body);
+            console.log('error:');
             console.log(error);
-            if (response.statusCode != 200)
-            {
-                return res.send(false);
-            }
-            return res.send(true);
+//            if (response.statusCode != 200)
+//            {
+//                return res.send(false);
+//            }
+//            return res.send(true);
         });
 }
 
