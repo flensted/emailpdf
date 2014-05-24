@@ -4,6 +4,9 @@
   "version": "0.0.1",
   "dependencies": {
     "body-parser": "^1.2.0",
-    "express": "*"
+    "express": "*",
+    "mailgun-js": "^0.4.8",
+    "mustache": "^0.8.1",
+    "restler": "^3.2.2"
   }
 }
