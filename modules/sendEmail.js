@@ -18,14 +18,9 @@ var sendEmail = function(toEmail, fromEmail, subject, message, attachment, attac
 
     mailgun.messages().send(data,
         function(error, response, body) {
-            console.log(body);
-            console.log('error:');
-            console.log(error);
-//            if (response.statusCode != 200)
-//            {
-//                return res.send(false);
-//            }
-//            return res.send(true);
+            if (!!error) {
+                console.log(error.message);
+            }
         });
 }
 

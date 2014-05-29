@@ -135,7 +135,7 @@ var data = {products: [
             testMode: 'true'
 };
 
-var pdfGenerator = require('../modules/generatePdf');
+var pdfGenerator = require('../modules/renderFromTemplate');
 var emailer = require('../modules/sendEmail');
 
 var html = pdfGenerator.renderProducts(data);

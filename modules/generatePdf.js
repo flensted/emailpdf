@@ -1,33 +1,24 @@
 var fs = require('fs');
-var mustache = require('mustache');
 var rest= require('restler');
 
 var config = require('../modules/appSettings').docRaptor;
 
-var mustacheTemplate = fs.readFileSync('./templates/productsheet.html').toString();
-
-var postData = {
+var docRaptorPostData = {
     user_credentials: config.apiKey,
     doc: {
         document_type: 'pdf',
-        name: 'Uhrenholt Products',
         document_content: undefined,
         strict: 'html',
+        name: 'Uhrenholt Products',
         test: undefined
     }
 };
 
-var renderProducts = function (data) {
-    return mustache.render(mustacheTemplate, data);
-}
+var generatePdf= function(text, testMode, callback) {
+    docRaptorPostData.doc.document_content = text;
+    docRaptorPostData.doc.test = !!testMode ? testMode : config.testMode;
 
-var generatePdf = function(data, callback) {
-    var finishedDocument = renderProducts(data);
-
-    postData.doc.document_content = finishedDocument;
-    postData.doc.test = data.testMode ? data.testMode : config.testMode;
-
-    var req = rest.postJson(config.url, postData);
+    var req = rest.postJson(config.url, docRaptorPostData);
     req.on('success', function(data, response) {
         callback(response.raw);
     });
@@ -35,9 +26,8 @@ var generatePdf = function(data, callback) {
         console.log('Failure Creating Document');
     });
     req.on('error', function(err, response) {
-        console.log('Error Creating Document');
+        console.log('Error Creating Document: ' + err.message);
     });
 }
 
-module.exports.renderProducts = renderProducts;
 module.exports.generatePdf = generatePdf;
